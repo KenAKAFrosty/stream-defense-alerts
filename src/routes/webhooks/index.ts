@@ -5,10 +5,10 @@ export const onRequest: RequestHandler = async (event) => {
     const method = event.request.method;
     const headers = event.request.headers.entries();
     const body = event.parseBody();
-    console.log(headers);
-    console.log(body);
+    console.log({ method, headers, body })
     const qb = getQueryBuilder();
-    qb.insertInto("incoming_webhooks").values({ 
-        payload: JSON.stringify({method, headers, body}),
-    })
+    await qb.insertInto("incoming_webhooks").values({
+        payload: JSON.stringify({ method, headers, body }),
+    }).execute();
+    event.json(200, { value: "Received", failure: null });
 }
