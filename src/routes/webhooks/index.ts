@@ -3,7 +3,7 @@ import { getQueryBuilder } from "~/database/functions";
 
 export const onPost: RequestHandler = async (event) => {
     const body = await event.parseBody();
-    if (body === null) { 
+    if (!body) { 
         event.json(500, {value: null, failure: "No body provided. Please provide a JSON body and be sure to include the 'Content-Type' header of 'application/json'"})
         return;
     }
