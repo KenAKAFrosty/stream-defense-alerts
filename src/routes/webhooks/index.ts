@@ -2,9 +2,11 @@ import { type RequestHandler } from "@builder.io/qwik-city";
 import { getQueryBuilder } from "~/database/functions";
 
 export const onRequest: RequestHandler = async (event) => {
-    const body = await event.parseBody();
-    if (!body) { 
-        event.json(500, {value: null, failure: "No body provided. Please provide a JSON body and be sure to include the 'Content-Type' header of 'application/json'"})
+    let body;
+    try { 
+        body = await event.request.json();
+    } catch(e) { 
+        event.json(500, {value: null, failure: "No body provided."})
         return;
     }
     const method = event.request.method;
