@@ -20,6 +20,7 @@
     "preview": "qwik build preview && vite preview --open",
     "serve": "node server/entry.fastify",
     "start": "vite --open --mode ssr",
+    "typegen": "kysely-codegen --dialect postgres --out-file src/database/types.d.ts",
     "qwik": "qwik"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "@fastify/static": "^6.10.1",
     "@types/eslint": "8.40.2",
     "@types/node": "^20.4.0",
+    "@types/pg": "^8.10.2",
     "@typescript-eslint/eslint-plugin": "5.61.0",
     "@typescript-eslint/parser": "5.61.0",
     "eslint": "8.44.0",
@@ -40,5 +42,11 @@
     "undici": "5.22.1",
     "vite": "4.4.0",
     "vite-tsconfig-paths": "4.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "kysely": "^0.26.1",
+    "kysely-codegen": "^0.10.1",
+    "pg": "^8.11.1"
   }
 }
