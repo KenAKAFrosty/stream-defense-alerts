@@ -10,11 +10,14 @@ export const onRequest: RequestHandler = async (event) => {
         return;
     }
     const method = event.request.method;
-    const headers = event.request.headers.entries();
+    const headers: Record<string, string> = {}
+    event.request.headers.forEach((value, key) => {
+        headers[key] = value;
+    })
     console.log({ method, headers, body })
     const qb = getQueryBuilder();
     await qb.insertInto("incoming_webhooks").values({
-        payload: JSON.stringify({ method, headers, body }),
+        payload: JSON.stringify({ origin: event.url.origin, method, headers, body }),
     }).execute();
     event.json(200, { value: "Received and processed", failure: null });
 }
