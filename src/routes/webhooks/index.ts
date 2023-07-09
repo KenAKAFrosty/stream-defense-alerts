@@ -10,5 +10,5 @@ export const onRequest: RequestHandler = async (event) => {
     await qb.insertInto("incoming_webhooks").values({
         payload: JSON.stringify({ method, headers, body }),
     }).execute();
-    event.json(200, { value: "Received", failure: null });
+    event.json(200, { value: "received and processed", failure: null });
 }
